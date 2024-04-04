@@ -1,10 +1,16 @@
 class Solution {
 public:
-    TreeNode* searchBST(TreeNode* root, int val) {
+    TreeNode* traversal(TreeNode* root, int val){
         if(root == NULL || root->val == val) return root;
+        TreeNode* left = traversal(root->left, val);
+        TreeNode* right = traversal(root->right, val);
+        if(left != NULL) return left;
+        return right;
+    }
+
+    TreeNode* searchBST(TreeNode* root, int val) {
         TreeNode* result = NULL;
-        if(root->val > val) result = searchBST(root->left, val);
-        if(root->val < val) result = searchBST(root->right, val);
+        result = traversal(root, val);
         return result;
     }
 };
